@@ -366,3 +366,9 @@ input[type="submit"] {
     width: 80%;
   }
 }
+
+/* Masquer le "tous" en trop */
+
+.tags-bar:first-of-type {
+  display: none;
+}
