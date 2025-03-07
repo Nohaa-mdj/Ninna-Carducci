@@ -89,6 +89,11 @@ body {
   font-size: 14px;
 }
 
+#about-me p,
+.about-me__introduction {
+  color: #5a4033; /* Marron foncé pour améliorer le contraste */
+}
+
 /*#gallery {
   /*	min-height: 100vh; */
 /*} */
@@ -102,7 +107,8 @@ body {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #beb45a;
+  /*background-color: #beb45a; */
+  background-color: #8b6f47;
   border-radius: 0;
 }
 
@@ -136,6 +142,7 @@ body {
   height: 100%;
   object-fit: cover;
   padding: 0.5em;
+  border: 3px solid #ffffff;
 }
 .mg-prev,
 .mg-next {
