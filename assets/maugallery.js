@@ -115,26 +115,44 @@
       $(`#${lightboxId}`).modal("toggle");
     },
 
+    //prevImage() {
+    //let activeImage = null;
+    //let imagesCollection = $("img.gallery-item");
+
+    // Trouver l'image active
+    //imagesCollection.each(function (index) {
+    //if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
+    //activeImage = $(this);
+    //let prevIndex = index - 1; // Aller à l'image précédente
+
+    //if (prevIndex >= 0) {
+    //let prevImageSrc = $(imagesCollection[prevIndex]).attr("src");
+    //$(".lightboxImage").attr("src", prevImageSrc);
+    //}
+    //}
+    //});
+    //
+    //},
+
     prevImage() {
-      let activeImage = null;
-      let imagesCollection = $("img.gallery-item");
+      let imagesCollection = $("img.gallery-item:visible");
+      let activeImageSrc = $(".lightboxImage").attr("src");
+      let index = imagesCollection.index(
+        imagesCollection.filter(`[src="${activeImageSrc}"]`)
+      );
 
-      // Trouver l'image active
-      imagesCollection.each(function (index) {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
-          let prevIndex = index - 1; // Aller à l'image précédente
-
-          if (prevIndex >= 0) {
-            let prevImageSrc = $(imagesCollection[prevIndex]).attr("src");
-            $(".lightboxImage").attr("src", prevImageSrc);
-          }
-        }
-      });
+      if (index > 0) {
+        let prevImageSrc = imagesCollection.eq(index - 1).attr("src");
+        $(".lightboxImage").attr("src", prevImageSrc);
+      } else {
+        // Si on est à la première image, revenir à la dernière
+        let lastImageSrc = imagesCollection.last().attr("src");
+        $(".lightboxImage").attr("src", lastImageSrc);
+      }
     },
 
     nextImage() {
-      let imagesCollection = $("img.gallery-item"); // Récupère toutes les images
+      let imagesCollection = $("img.gallery-item:visible"); // Récupère toutes les images
       let activeImageSrc = $(".lightboxImage").attr("src"); // Récupère l'image actuellement affichée
       let index = imagesCollection.index(
         imagesCollection.filter(`[src="${activeImageSrc}"]`)
@@ -144,6 +162,10 @@
         // Vérifie qu'il existe une image suivante
         let nextImageSrc = imagesCollection.eq(index + 1).attr("src");
         $(".lightboxImage").attr("src", nextImageSrc);
+      } else {
+        // Si l'utilisateur est sur la dernière image, revenir à la première
+        let firstImageSrc = imagesCollection.first().attr("src");
+        $(".lightboxImage").attr("src", firstImageSrc);
       }
     },
 
@@ -169,6 +191,21 @@
                     </div>
                 </div>
             </div>`);
+
+      // ✅ Correction de la liaison des événements avec la bonne portée
+      $(".mg-prev")
+        .off("click")
+        .on("click", (event) => {
+          event.stopPropagation(); // Évite les déclenchements en cascade
+          $.fn.mauGallery.methods.prevImage(); // Correction ici
+        });
+
+      $(".mg-next")
+        .off("click")
+        .on("click", (event) => {
+          event.stopPropagation(); // Évite les déclenchements en cascade
+          $.fn.mauGallery.methods.nextImage(); // Correction ici
+        });
     },
     showItemTags(gallery, position, tags) {
       var tagItems =
