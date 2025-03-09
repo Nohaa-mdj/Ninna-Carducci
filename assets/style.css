@@ -384,3 +384,30 @@ input[type="submit"] {
 .tags-bar:first-of-type {
   display: none;
 }
+
+/*régulation contratste*/
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(1); /* Inverse les couleurs (rend noir sur fond clair) */
+  background-color: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); /* Arrière-plan semi-transparent pour améliorer la visibilité */
+  border-radius: 50%; /* Optionnel, pour arrondir les icônes */
+  width: 40px; /* Agrandir légèrement pour plus de visibilité */
+  height: 40px;
+}
+
+.carousel-control-prev .visually-hidden,
+.carousel-control-next .visually-hidden {
+  color: #000; /* Texte en noir pour un bon contraste */
+  background-color: #fff; /* Optionnel, si le fond est trop clair */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Ombre discrète */
+}
