@@ -54,7 +54,6 @@ body {
 .picture.left::before {
   content: " ";
   /*background-color: #e5975f;*/
-  /*background-color: rgba(227, 188, 163, 0.9);*/
   background-color: #e3bca3;
   width: 374px;
   height: 329px;
